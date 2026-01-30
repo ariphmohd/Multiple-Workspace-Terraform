@@ -34,6 +34,7 @@ resource "aws_subnet" "public" {
 
   tags = {
     Name = "${var.name}-public-${var.azs[count.index]}"
+    Type = "public"
 
     # Required for EKS / ALB
     "kubernetes.io/role/elb" = "1"
@@ -52,7 +53,8 @@ resource "aws_subnet" "private" {
 
   tags = {
     Name = "${var.name}-private-${var.azs[count.index]}"
-
+    Type = "private"
+    
     # Required for EKS internal services
     "kubernetes.io/role/internal-elb" = "1"
     "kubernetes.io/cluster/${var.name}" = "shared"
